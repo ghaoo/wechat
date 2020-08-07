@@ -87,6 +87,20 @@ func DefaultConfigure() *Configure {
 	}
 }
 
+func NewConfigure(cachePath string, debug bool, processor UUIDProcessor) *Configure {
+	conf := DefaultConfigure()
+	conf.Debug = debug
+	if len(cachePath) > 0 {
+		conf.CachePath = cachePath
+	}
+
+	if processor != nil {
+		conf.Processor = processor
+	}
+
+	return conf
+}
+
 func (c *Configure) contactCachePath() string {
 	return filepath.Join(c.CachePath, `contact-cache.json`)
 }
